@@ -9,8 +9,11 @@ import { ItemDetailComponent } from "./item/item-detail.component";
 
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
-// Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
-// import { NativeScriptHttpModule } from "nativescript-angular/http";
+import { NativeScriptHttpModule } from "nativescript-angular/http";
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import {LoginComponent} from './login/login.component';
+import {InMemoryDataService} from './services/in-memory-data.service';
 
 @NgModule({
     bootstrap: [
@@ -19,6 +22,10 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
     imports: [
         NativeScriptModule,
         NativeScriptFormsModule,
+        NativeScriptHttpModule,
+        HttpClientInMemoryWebApiModule.forRoot(
+            InMemoryDataService, { dataEncapsulation: false }
+        ),
         AppRoutingModule
     ],
     declarations: [
