@@ -1,45 +1,36 @@
 import {Injectable} from '@angular/core';
-import {TokenResponse, User} from '../models';
+import {TokenResponse, User, LoginRequest} from '../models';
 import {Observable} from 'rxjs/Observable';
-import {LoginRequest} from '../models/login-request.model';
+import {HttpClient} from '@angular/common/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
-export class LoginService {
+export class AuthService {
     private tokenName: 'access_token';
     private token: string;
     private currentUser: User;
 
-    constructor(http: Http)
+    constructor(private http: HttpClient) {
+    }
 
     /**
      * Authenticate a user. Requires an email/password object.
      */
     public authenticate(form: LoginRequest): Observable<TokenResponse> {
-        return this.http
-            .hostname(this.environment.api)
-            .post('login', form);
+        return this.http.get<User>(`api/users?name=${form.name}&password=${form.password}`).map((data) => {
+            return {token: Math.random().toString(36), user: data}
+        });
     }
 
-    /**
-     * Send login check request to xcart page.
-     */
-    public checkXCartAuth() {
-        return this.http
-            .hostname(this.environment.xcart)
-            .get('login/check')
+    public register(form: LoginRequest): Observable<TokenResponse> {
+        return null;
     }
 
     /**
      * Returns whether the token is valid (user is authenticated).
      */
     public valid(): boolean {
-        // Does the token even exist in localStorage?
-        if (! localStorage.getItem(this.tokenName)) {
-            return false;
-        }
-
-        // If the token hasn't expired, they're authenticated
-        return !this.jwtHelper.isTokenExpired(localStorage.getItem(this.tokenName));
+        return !!localStorage.getItem(this.tokenName)
     }
 
     /**

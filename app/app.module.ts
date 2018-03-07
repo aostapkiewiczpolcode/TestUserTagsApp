@@ -1,19 +1,18 @@
-import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-import { AppRoutingModule } from "./app.routing";
-import { AppComponent } from "./app.component";
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NativeScriptModule} from 'nativescript-angular/nativescript.module';
+import {AppRoutingModule} from './app.routing';
+import {AppComponent} from './app.component';
 
-import { ItemService } from "./item/item.service";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
+import {NativeScriptFormsModule} from 'nativescript-angular/forms';
+import {NativeScriptHttpClientModule} from 'nativescript-angular/http-client';
 
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
-
-import { NativeScriptHttpModule } from "nativescript-angular/http";
-
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {LoginComponent} from './login/login.component';
-import {InMemoryDataService} from './services/in-memory-data.service';
+import {InMemoryUserService} from './services/in-memory-user.service';
+import {UserService} from './services/user.service';
+import {AuthService} from './services/auth.service';
+import {UsersComponent} from './users/users.component';
+import {UserDetailComponent} from './users/user-detail.component';
 
 @NgModule({
     bootstrap: [
@@ -22,26 +21,25 @@ import {InMemoryDataService} from './services/in-memory-data.service';
     imports: [
         NativeScriptModule,
         NativeScriptFormsModule,
-        NativeScriptHttpModule,
+        NativeScriptHttpClientModule,
         HttpClientInMemoryWebApiModule.forRoot(
-            InMemoryDataService, { dataEncapsulation: false }
+            InMemoryUserService, {delay: 500, dataEncapsulation: false}
         ),
         AppRoutingModule
     ],
     declarations: [
         AppComponent,
         LoginComponent,
-        ItemsComponent,
-        ItemDetailComponent
+        UsersComponent,
+        UserDetailComponent
     ],
     providers: [
-        ItemService
+        AuthService,
+        UserService,
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-/*
-Pass your application module to the bootstrapModule function located in main.ts to start your app
-*/
-export class AppModule { }
+export class AppModule {
+}
