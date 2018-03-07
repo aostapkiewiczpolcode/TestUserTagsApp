@@ -1,12 +1,23 @@
 <ActionBar title="Details" class="action-bar"></ActionBar>
 <FlexboxLayout flexDirection="column" class="page">
     <FlexboxLayout class="m-15">
-        <Label class="h2" [text]="user.id + '. '"></Label>
+        <Label class="h2" [text]="user.id + ': '"></Label>
         <Label class="h2" [text]="user.name"></Label>
     </FlexboxLayout>
-    <ListView items="user.skills" class="skill-list">
-        <ng-template let-item="skill">
-            <Label [text]="skill.name" class="list-group-item"></Label>
-        </ng-template>
-    </ListView>
+    <StackLayout>
+        <Label text="User skills:"></Label>
+        <ListView [items]="user.skills" class="skill-list">
+            <ng-template let-item="item">
+                <Label [text]="item.name" class="list-group-item"></Label>
+                <Button text="Remove" *ngIf="editEnabled" (tap)="removeSkill(item.id)"></Button>
+            </ng-template>
+        </ListView>
+    </StackLayout>
+    <StackLayout *ngIf="editEnabled">
+        <Label text="Add skill"></Label>
+        <TextField #newSkillName="ngModel" secure="true" [(ngModel)]="newSkill.name" required></TextField>
+        <Button class="btn btn-primary" text="Add Skill" (tap)="addSkill()"></Button>
+    </StackLayout>
 </FlexboxLayout>
+<skill-list></skill-list>
+

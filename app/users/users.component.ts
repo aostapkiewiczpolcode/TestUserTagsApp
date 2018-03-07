@@ -2,6 +2,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {User} from '../models';
+import {AuthService} from '../services/auth.service';
 
 @Component({
     selector: 'ns-items',
@@ -10,8 +11,12 @@ import {User} from '../models';
 })
 export class UsersComponent implements OnInit {
     users: User[];
+    currentUser: User;
 
-    constructor(private userService: UserService) {
+    constructor(
+        private authService: AuthService,
+        private userService: UserService) {
+        this.currentUser = authService.getCurrentUser();
     }
 
     ngOnInit(): void {
