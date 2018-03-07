@@ -1,6 +1,7 @@
 import { User } from './user.model';
 
-export class TokenResponse {
-    token: string;
+export interface TokenResponse {
+    token?: string;
     user?: User;
+    error?: boolean;
 }

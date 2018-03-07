@@ -8,7 +8,7 @@ export class User {
     }
 
     public id: number;
-    private password: string;
+    public password: string;
     public name: string;
     public skills: Skill[] = [];
 }

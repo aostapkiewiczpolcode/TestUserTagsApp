@@ -17,15 +17,18 @@ export class UserService {
     }
 
     getUsers(): Observable<User[]> {
-        return Observable.of(this.users).delay(this.apiDelay);
+        return Observable.of(this.users);
     }
 
     getUser(id: number): Observable<User> {
-        return  Observable.of(this.users.find(user => user.id === id)).delay(this.apiDelay);
+        return  Observable.of(this.users.find(user => user.id === id));
     }
 
     findByName(name: string): Observable<User> {
-        console.log(name);
-        return Observable.of(this.users.find(user => user.name === name)).delay(this.apiDelay);
+        return Observable.of(this.users.find(user => user.name === name));
+    }
+
+    add(user: User) {
+        this.users.push(user);
     }
 }

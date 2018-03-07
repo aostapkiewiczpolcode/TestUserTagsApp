@@ -16,11 +16,11 @@
         </StackLayout>
     </StackLayout>
     <StackLayout class="input-field">
-        <Button [class.disabled]="!(name.valid && password.valid)" text="Sign In" (tap)="login()"
+        <Button [disabled]="!(name.valid && password.valid)" text="Sign In" (tap)="login()"
                 class="btn btn-primary"></Button>
     </StackLayout>
     <StackLayout class="input-field">
-        <Button [class.disabled]="!(name.valid && password.valid)" text="Sign On" (tap)="register()"
-                class="btn btn-primary"></Button>
+        <Button [disabled]="!(name.valid && password.valid)" text="Sign Up" (tap)="register()"
+                class="btn bnt-default"></Button>
     </StackLayout>
 </StackLayout>

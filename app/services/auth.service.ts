@@ -18,12 +18,22 @@ export class AuthService {
      */
     public authenticate(input: LoginRequest): Observable<TokenResponse> {
         return this.userService.findByName(input.name).map(user => {
-            return {token: Math.random().toString(36), user: user};
+            if (user && user.password === input.password) {
+                return {token: Math.random().toString(36), user: user};
+            }
+            return {error: true};
         });
     }
 
-    public register(form: LoginRequest): Observable<TokenResponse> {
-        return null;
+    public register(input: LoginRequest): Observable<TokenResponse> {
+        return this.userService.findByName(input.name).map(user => {
+            if (user) {
+                return {error: true};
+            }
+            user = new User(new Date().valueOf(), input.name, input.password);
+            this.userService.add(user);
+            return {token: Math.random().toString(36), user: user};
+        });
     }
 
     /**
