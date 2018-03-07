@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {TokenResponse, User, LoginRequest} from '../models';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import {UserService} from './user.service';
 
 @Injectable()
 export class AuthService {
@@ -10,15 +10,15 @@ export class AuthService {
     private token: string;
     private currentUser: User;
 
-    constructor(private http: HttpClient) {
+    constructor(private userService: UserService) {
     }
 
     /**
      * Authenticate a user. Requires an email/password object.
      */
-    public authenticate(form: LoginRequest): Observable<TokenResponse> {
-        return this.http.get<User>(`api/users?name=${form.name}&password=${form.password}`).map((data) => {
-            return {token: Math.random().toString(36), user: data}
+    public authenticate(input: LoginRequest): Observable<TokenResponse> {
+        return this.userService.findByName(input.name).map(user => {
+            return {token: Math.random().toString(36), user: user};
         });
     }
 

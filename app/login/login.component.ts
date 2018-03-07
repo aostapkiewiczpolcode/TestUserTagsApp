@@ -12,8 +12,6 @@ import {Page} from 'tns-core-modules/ui/page';
 })
 export class LoginComponent implements OnInit {
    public user: User;
-   public isChecking: boolean;
-   public log: String;
    public input: LoginRequest = {
         name: '',
         password: ''
@@ -25,23 +23,18 @@ export class LoginComponent implements OnInit {
         page.actionBarHidden = true;
     }
 
-    ngOnInit(): void {
-        this.log = 'app-started';
+    ngOnInit() {
+        console.log("Login Component Init");
     }
 
-    public async loginOrRegister() {
-        this.log = 'button pressed';
-        let user = await this.userService.findByName(this.input.name);
-        if (user) {
-            console.log(user);
-            this.authService.authenticate(this.input).subscribe((token: TokenResponse) => {
-
-            })
-        } else {
-            this.authService.register(this.input).subscribe((token: TokenResponse) => {
-
-            })
-        }
-
+    public login() {
+        console.log(JSON.stringify(this.input));
+        this.authService.authenticate(this.input).subscribe(data => {
+            if(data.user) {
+                this.user = data.user;
+            } else {
+                alert('Filed to log in!');
+            }
+        })
     }
 }

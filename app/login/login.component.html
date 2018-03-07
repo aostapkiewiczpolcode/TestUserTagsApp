@@ -16,7 +16,11 @@
         </StackLayout>
     </StackLayout>
     <StackLayout class="input-field">
-        <Button [class.disabled]="!(name.valid && password.valid)" text="Sign In / On" (click)="loginOrRegister()" class="btn btn-primary"></Button>
+        <Button [class.disabled]="!(name.valid && password.valid)" text="Sign In" (tap)="login()"
+                class="btn btn-primary"></Button>
     </StackLayout>
-    <Label [text]="log"></Label>
+    <StackLayout class="input-field">
+        <Button [class.disabled]="!(name.valid && password.valid)" text="Sign On" (tap)="register()"
+                class="btn btn-primary"></Button>
+    </StackLayout>
 </StackLayout>
