@@ -1,4 +1,8 @@
 export class Skill {
-    private id: number;
+    constructor(skill: Skill) {
+        Object.assign(this, skill);
+    }
+
+    public id: number;
     public name: string;
 }

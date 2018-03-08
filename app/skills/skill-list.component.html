@@ -1,0 +1,15 @@
+<RadAutoCompleteTextView
+        (tokenAdded)="onTokenAdded($event)"
+        (tokenRemoved)="onTokenRemoved($event)"
+        [items]="dataItems"
+        [showCloseButton]="editEnabled"
+        suggestMode="Suggest"
+        displayMode="Tokens">
+    <SuggestionView tkAutoCompleteSuggestionView>
+        <ng-template tkSuggestionItemTemplate let-item="item">
+            <StackLayout orientation="vertical" padding="10">
+                <Label [text]="item.text"></Label>
+            </StackLayout>
+        </ng-template>
+    </SuggestionView>
+</RadAutoCompleteTextView>

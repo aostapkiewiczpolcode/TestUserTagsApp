@@ -1,0 +1,26 @@
+<StackLayout class="login-form">
+    <StackLayout class="input-field">
+        <Label text="Username" class="label font-weight-bold m-b-5"></Label>
+        <TextField #name="ngModel" [(ngModel)]="input.name" class="input" required></TextField>
+    </StackLayout>
+    <StackLayout class="input-field">
+        <Label text="Password" class="label font-weight-bold m-b-5"></Label>
+        <TextField #password="ngModel" secure="true" [(ngModel)]="input.password" class="input" required></TextField>
+    </StackLayout>
+    <StackLayout class="input-field">
+        <StackLayout *ngIf="name.errors && (name.dirty || name.touched)">
+            <Label *ngIf="name.errors.required" text="- An name is required -"></Label>
+        </StackLayout>
+        <StackLayout *ngIf="password.errors && (password.dirty || password.touched)">
+            <Label *ngIf="password.errors.required" text="- A password is required -"></Label>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout class="input-field">
+        <Button [disabled]="!(name.valid && password.valid)" text="Sign In" (tap)="login()"
+                class="btn btn-primary"></Button>
+    </StackLayout>
+    <StackLayout class="input-field">
+        <Button [disabled]="!(name.valid && password.valid)" text="Sign Up" (tap)="register()"
+                class="btn bnt-default"></Button>
+    </StackLayout>
+</StackLayout>

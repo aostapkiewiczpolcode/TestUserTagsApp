@@ -1,0 +1,16 @@
+<ActionBar title="Welcome" class="action-bar">
+    <StackLayout orientation="horizontal"
+                 ios:horizontalAlignment="center"
+                 android:horizontalAlignment="left">
+        <Label text="Welcome "></Label>
+        <Label [text]="currentUser.name"></Label>
+    </StackLayout>
+</ActionBar>
+<StackLayout class="page">
+    <ListView [items]="users" class="list-group">
+        <ng-template let-item="item">
+            <Label [nsRouterLink]="['/user', item.id]" [text]="item.name"
+                class="list-group-item"></Label>
+        </ng-template>
+    </ListView>
+</StackLayout>

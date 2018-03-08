@@ -1,21 +1,68 @@
 ///<reference path="../../node_modules/tns-core-modules/tns-core-modules.d.ts"/>
-import { Component, OnInit } from "@angular/core";
-
-import { User } from "./models";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {LoginRequest, TokenResponse, User} from '../models';
+import {UserService} from '../services/user.service';
+import {AuthService} from '../services/auth.service';
+import {Page} from 'tns-core-modules/ui/page';
+import {Router} from '@angular/router';
+import {RouterExtensions} from 'nativescript-angular';
 
 @Component({
-    selector: "ns-items",
+    selector: 'ns-login',
     moduleId: module.id,
-    templateUrl: "./items.component.html",
+    templateUrl: './login.component.html',
 })
-export class ItemsComponent implements OnInit {
-    items: Item[];
+export class LoginComponent implements OnInit {
+    @ViewChild('name') public name;
+    @ViewChild('password') public password;
+    public user: User;
+    public input: LoginRequest = {
+        name: '',
+        password: ''
+    };
 
-    // This pattern makes use of Angular’s dependency injection implementation to inject an instance of the ItemService service into this class.
-    // Angular knows about this service because it is included in your app’s main NgModule, defined in app.module.ts.
-    constructor(private itemService: ItemService) { }
+    constructor(private page: Page,
+                private authService: AuthService,
+                private routerExtensions: RouterExtensions,
+                private userService: UserService) {
+        page.actionBarHidden = true;
+    }
 
-    ngOnInit(): void {
-        this.items = this.itemService.getItems();
+    public ngOnInit() {
+        console.log('LOGIN COMPONENT INIT');
+    }
+
+    public login() {
+        if (this.validateForm()) {
+            this.authService.authenticate(this.input).subscribe(response => {
+                if (response.error) {
+                    alert('Filed to log in, cannot match username and password!');
+                    return;
+                }
+                this.user = response.user;
+                this.routerExtensions.navigateByUrl('/users');
+            });
+        } else {
+            alert('Form data is invalid!');
+        }
+    }
+
+    private validateForm() {
+        return (this.name.valid && this.password.valid);
+    }
+
+    public register() {
+        if (this.validateForm()) {
+            this.authService.register(this.input).subscribe(response => {
+                if (response.error) {
+                    alert('Filed to log in, user with this name exists!');
+                    return;
+                }
+                this.user = response.user;
+                this.routerExtensions.navigateByUrl('/users');
+            });
+        } else {
+            alert('Form data is invalid!');
+        }
     }
 }

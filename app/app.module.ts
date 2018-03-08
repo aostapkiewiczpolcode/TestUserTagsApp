@@ -1,16 +1,19 @@
-import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-import { AppRoutingModule } from "./app.routing";
-import { AppComponent } from "./app.component";
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NativeScriptModule} from 'nativescript-angular/nativescript.module';
+import {AppRoutingModule} from './app.routing';
+import {AppComponent} from './app.component';
 
-import { ItemService } from "./item/item.service";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
+import {NativeScriptHttpModule} from 'nativescript-angular';
+import {NativeScriptFormsModule} from 'nativescript-angular/forms';
 
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
-
-// Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
-// import { NativeScriptHttpModule } from "nativescript-angular/http";
+import {LoginComponent} from './login/login.component';
+import {UserService} from './services/user.service';
+import {AuthService} from './services/auth.service';
+import {UsersComponent} from './users/users.component';
+import {UserDetailComponent} from './users/user-detail.component';
+import {NativeScriptUIAutoCompleteTextViewModule} from 'nativescript-ui-autocomplete/angular';
+import {SkillListComponent} from './skills/skill-list.component';
+import {SkillService} from './services/skill.service';
 
 @NgModule({
     bootstrap: [
@@ -19,22 +22,25 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
     imports: [
         NativeScriptModule,
         NativeScriptFormsModule,
+        NativeScriptHttpModule,
+        NativeScriptUIAutoCompleteTextViewModule,
         AppRoutingModule
     ],
     declarations: [
         AppComponent,
         LoginComponent,
-        ItemsComponent,
-        ItemDetailComponent
+        UsersComponent,
+        UserDetailComponent,
+        SkillListComponent
     ],
     providers: [
-        ItemService
+        AuthService,
+        UserService,
+        SkillService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-/*
-Pass your application module to the bootstrapModule function located in main.ts to start your app
-*/
-export class AppModule { }
+export class AppModule {
+}

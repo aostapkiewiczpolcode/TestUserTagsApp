@@ -1,0 +1,13 @@
+<ActionBar title="Details" class="action-bar"></ActionBar>
+<FlexboxLayout flexDirection="column" class="page">
+    <FlexboxLayout class="m-15">
+        <Label class="h2" [text]="user.id + ': '"></Label>
+        <Label class="h2" [text]="user.name"></Label>
+    </FlexboxLayout>
+    <StackLayout>
+        <Label text="User skills:"></Label>
+        <skill-list [selectedSkills]="user.skills" [editEnabled]="editEnabled" (skillWasRemoved)="removeSkill($event)" (skillWasAdded)="selectSkill($event)"></skill-list>
+    </StackLayout>
+</FlexboxLayout>
+
+
