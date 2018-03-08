@@ -1,12 +1,13 @@
 <ActionBar title="Details" class="action-bar"></ActionBar>
 <FlexboxLayout flexDirection="column" class="page">
     <FlexboxLayout class="m-15">
-        <Label class="h2" [text]="user.id + '. '"></Label>
+        <Label class="h2" [text]="user.id + ': '"></Label>
         <Label class="h2" [text]="user.name"></Label>
     </FlexboxLayout>
-    <ListView items="user.skills" class="skill-list">
-        <ng-template let-item="skill">
-            <Label [text]="skill.name" class="list-group-item"></Label>
-        </ng-template>
-    </ListView>
+    <StackLayout>
+        <Label text="User skills:"></Label>
+        <skill-list [selectedSkills]="user.skills" [editEnabled]="editEnabled" (skillWasRemoved)="removeSkill($event)" (skillWasAdded)="selectSkill($event)"></skill-list>
+    </StackLayout>
 </FlexboxLayout>
+
+

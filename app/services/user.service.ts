@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {User} from '../models';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class UserService {
@@ -31,4 +30,5 @@ export class UserService {
     add(user: User) {
         this.users.push(user);
     }
+
 }

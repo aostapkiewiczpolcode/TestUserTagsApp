@@ -19,6 +19,7 @@ export class AuthService {
     public authenticate(input: LoginRequest): Observable<TokenResponse> {
         return this.userService.findByName(input.name).map(user => {
             if (user && user.password === input.password) {
+                this.currentUser = user;
                 return {token: Math.random().toString(36), user: user};
             }
             return {error: true};
@@ -31,6 +32,7 @@ export class AuthService {
                 return {error: true};
             }
             user = new User(new Date().valueOf(), input.name, input.password);
+            this.currentUser = user;
             this.userService.add(user);
             return {token: Math.random().toString(36), user: user};
         });
@@ -64,5 +66,9 @@ export class AuthService {
      */
     public destroy(): void {
         return localStorage.removeItem(this.tokenName);
+    }
+
+    public getCurrentUser() {
+        return this.currentUser;
     }
 }
