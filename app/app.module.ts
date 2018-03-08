@@ -23,6 +23,7 @@ import {SkillService} from './services/skill.service';
         NativeScriptModule,
         NativeScriptFormsModule,
         NativeScriptHttpModule,
+        NativeScriptUIAutoCompleteTextViewModule,
         AppRoutingModule
     ],
     declarations: [

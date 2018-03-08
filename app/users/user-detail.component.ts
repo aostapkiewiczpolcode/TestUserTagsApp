@@ -1,5 +1,4 @@
-///<reference path="../../node_modules/tns-core-modules/tns-core-modules.d.ts"/>
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Skill, User} from '../models';
 import {UserService} from '../services/user.service';
@@ -12,7 +11,6 @@ import {AuthService} from '../services/auth.service';
     templateUrl: './user-detail.component.html',
 })
 export class UserDetailComponent implements OnInit {
-    @ViewChild('newSkillName') public newSkillName;
     public user: User;
     public editEnabled: boolean = false;
     public newSkill: Skill = new Skill({
@@ -36,8 +34,12 @@ export class UserDetailComponent implements OnInit {
         });
     }
 
+    public selectSkill(event) {
+        this.newSkill.name = event.skillName;
+    }
+
     public addSkill() {
-        if (!this.newSkillName.valid) {
+        if (!this.newSkill.name) {
             alert('Wrong skill name!');
         }
         this.user.skills.push(new Skill(this.newSkill));
